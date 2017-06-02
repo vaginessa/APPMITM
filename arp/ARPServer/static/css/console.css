@@ -1,0 +1,119 @@
+body {
+    color: #bdbdbd;
+    padding: 10px;
+
+}
+
+.head-body {
+    width: 100%;
+    height: 65px;
+    background-color: #0c202e;
+    border: 1px solid #3ea9ed;
+    border-bottom: 0;
+    padding-left: 10px;
+}
+
+.head-body>section {
+    margin-left: 30px;
+    padding-top: 10px;
+    width: auto;
+    color: white;
+    height: 100%;
+    display: inline-block;
+}
+
+.head-body button {
+    border: 0;
+    padding: 0;
+    color: white;
+    font-size: 18px;
+    height: 48px;
+    width: 132px;
+    background: no-repeat url("/static/img/btn.png");
+}
+
+.head-body button:hover {
+    background: no-repeat url("/static/img/DNS.png")!important;
+}
+
+.head-body button:focus {
+    outline: none;
+}
+
+.head-body>section>input {
+    width: 90%;
+    border: 1px solid #345c75;
+    height: 32px;
+    background-color: #1b1b1b;
+    padding-left: 10px;
+    color: #eeeeee;
+}
+
+.head-body>section>input::-webkit-input-placeholder {
+    color: rgba(238,238,238,0.4)
+}
+
+.head-body>section>input:focus {
+    outline-style: none;
+}
+
+.table-body {
+    width: 100%;
+    height: 100%;
+    border-collapse: separate;
+    margin: 30px 0;
+    overflow: scroll!important;
+    text-align: center;
+}
+
+.table-body th {
+    border: 0;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    background-color: #000;
+    background: rgba(0,0,0,0.5);
+    font-weight: bolder;
+    font-size: 23px;
+    color: #22b2bd !important;
+}
+
+.table-body td {
+    padding-left: 10px;
+    color: #408daa;
+    color: rgba(255,255,255,0.6);
+    line-height: 35px;
+    font-size: 17px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border: 1px solid #3284b8
+}
+
+.table-body tr {
+    background-color: white;
+    background: rgba(255,255,255,0.1)
+}
+
+.table-body tr:nth-child(odd) {
+    background-color: white;
+    background: rgba(255,255,255,0.2)
+}
+
+.table-body tr:nth-child(odd) td {
+    color: rgba(255,255,255,0.6);
+}
+
+.table-body tr:hover {
+    background: rgba(0, 17,251,0.26)
+}
+
+
+
+.table-body tr:nth-child(odd):hover {
+    background: rgba(0, 17,251,0.26)
+}
+
+
+.table-body tr:hover td {
+    color: white!important;
+    background: rgba(255,255,255,0.3)!important;
+}

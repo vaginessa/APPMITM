@@ -1,0 +1,78 @@
+.head-logo {
+    border: 0;
+    position: absolute;
+    height: 10%;
+    left: 40%;
+    top: 1.5%;
+    right: 30%;
+    text-align: center;
+}
+
+
+.menu-body {
+    width: 250px;
+    border: 1px solid #3ea7ed;
+    border-radius: 30px;
+    height: 90%;
+    position: absolute;
+    left: 50px;
+    bottom: 0;
+    top: 5%;
+    background-color: rgba(0,0,0,0.4);
+}
+
+.content-body {
+    border: 0;
+    width: auto;
+    position: absolute;
+    right: 20px;
+    bottom: 8%;
+    top: 13%;
+    left: 320px;
+}
+
+.menu-body>ul {
+    width: 100%;
+    text-align: center;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.menu-body>ul>li {
+    height: 61px;
+    width: 170px;
+    margin: 0 auto;
+    display: block;
+    background: no-repeat url("/static/img/left_btn.png");
+}
+
+.menu-body>ul>li:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.menu-body>ul>li>button {
+    display: block;
+    height: 61px;
+    width: 170px;
+    text-decoration: none;
+    color: #166395;
+    font-size: 16px;
+    border: 0;
+    border-radius: 5px;
+    margin-top: 30px;
+    background: no-repeat url("/static/img/left_btn2.png");
+}
+
+.menu-body>ul>li>button:focus {
+    outline-style: none;
+}
+
+.choose {
+
+}
+
+.choose>button {
+    color: #50e1f7 !important;
+    background: no-repeat url("/static/img/left_btn.png") !important;
+}

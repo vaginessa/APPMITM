@@ -1,0 +1,176 @@
+{% extends "layout.html" %}
+{% block title %}控制台{% endblock %}
+{% block style %}
+    <link href="{{ url_for("static", filename="css/console.css") }}" rel="stylesheet" />
+{% endblock %}
+{% block body %}
+
+    <section class="head-body">
+        <section>
+            <input type="text" id="to_ip" value="{{ to_ip }}" placeholder="IP(A)">
+        </section>
+        <section>
+            <input type="text" value="{{ lie_ip }}" id="lie_ip" placeholder="IP(B)">
+        </section>
+
+
+        <section>
+            <button id="start_arp">发起ARP</button>
+        </section>
+
+        <section>
+            <button id="stop_arp" style="color: grey" disabled=disabled>停止ARP</button>
+        </section>
+
+        <section id="start_atk">
+            <button id="start_atk_btn" style="color: grey" disabled=disabled>开始劫持</button>
+        </section>
+
+        <section id="stop_atk" style="display: none">
+            <button id="stop_atk_btn" style="color: orange;">停止劫持</button>
+        </section>
+
+        <section id="status" style="float: right; height: 48px; text-align: center; width: 88px; padding: 0 20px 20px 0; background: no-repeat url('/static/img/grey.png') center" >
+            <p id="status_text" style="color: white; display: block; width: 100%; height: 100%; margin: 25px 0 0 10px;  ">关闭</p>
+        </section>
+    </section>
+
+    <table class="table-body">
+        <tr style="opacity: 0.7">
+            <th width="45%">域名列表</th>
+            <th width="10%">域名记录</th>
+            <th width="45%">欺骗地址</th>
+        </tr>
+                {% for line in data %}
+                <tr>
+                    <td>{{ line.dns }}</td>
+                    <td>{{ line.dns_level }}</td>
+                    <td>{{ line.ip }}</td>
+                </tr>
+                {% endfor %}
+        </tr>
+    </table>
+{% endblock %}
+{% block endScript %}
+    <script>
+        $(document).ready(function () {
+            var start_arp = $("#start_arp");
+            var stop_arp = $("#stop_arp");
+            var status = $("#status");
+            var status_text = $("#status_text");
+            var start_atk = $("#start_atk");
+            var start_atk_btn = $("#start_atk_btn");
+            var stop_atk = $("#stop_atk");
+            var stop_atk_btn = $("#stop_atk_btn");
+
+            start_arp.on("click", function() {
+                var to_ip = "to_ip=" + $("#to_ip").val();
+                var lie_ip = "lie_ip=" + $("#lie_ip").val();
+                $.get('{{ url_for("start_arp") }}?' + to_ip + "&" + lie_ip, function(data) {
+                    if (data == "Start") {
+                        status.css({"background-image": "url('/static/img/green.png')"});
+                        stop_arp.prop("disabled", false);
+                        status_text.html("开始")
+                    } else if (data == "Program is running") {
+                        status.css({"background-image": "url('/static/img/orange.png')"});
+                        stop_arp.prop("disabled", false);
+                        start_atk_btn.prop("disabled", false);
+                        start_atk_btn.css({"color": "red"});
+                        status_text.html("运行")
+                    } else if (data == "error") {
+                        status.css({"background-image": "url('/static/img/red.png')"});
+                        stop_arp.prop("disabled", false);
+                        status_text.html("异常")
+                    }
+                    stop_arp.css({"color": "white"})
+
+                    setTimeout(function() {
+                        $.get('{{ url_for("start_arp") }}?' + to_ip + "&" + lie_ip, function(data) {
+                            if (data == "Start") {
+                                status.css({"background-image": "url('/static/img/green.png')"});
+                                stop_arp.prop("disabled", false);
+                                status_text.html("开始")
+                            } else if (data == "Program is running") {
+                                status.css({"background-image": "url('/static/img/orange.png')"});
+                                stop_arp.prop("disabled", false);
+                                start_atk_btn.prop("disabled", false);
+                                start_atk_btn.css({"color": "red"});
+                                status_text.html("运行")
+                            } else if (data == "error") {
+                                status.css({"background-image": "url('/static/img/red.png')"});
+                                stop_arp.prop("disabled", false);
+                                status_text.html("异常")
+                            }
+                            stop_arp.css({"color": "white"})
+                        })
+                    }, 3000)
+                })
+                
+                start_arp.attr("disabled", "disabled");
+                start_arp.css({"color": "grey"});
+            });
+
+
+            stop_arp.on("click", function() {
+                $.get('{{ url_for("stop_arp") }}', function(data) {
+                    if (data == "Stop" || data == "No program run") {
+                        status.css({"background-image": "url('/static/img/grey.png')"});
+                        stop_arp.attr("disabled", "disabled");
+                        stop_arp.css({"color": "grey"})
+                        start_atk_btn.attr("disabled", "disabled")
+                        start_atk.css({"color": "grey"})
+                        status_text.html("关闭")
+                    } else {
+                        status.css({"background-image": "url('/static/img/red.png')"});
+                    }
+                    start_atk_btn.attr("disabled", "disabled");
+                    start_atk_btn.css({"color": "grey"})
+                    status_text.html("异常")
+                });
+                start_arp.prop("disabled", false);
+                start_arp.css({"color": "white"});
+            });
+
+            start_atk_btn.on("click", function() {
+                $.get('{{ url_for("start_atk") }}', function(data) {
+                        start_atk.css({"display": "none"});
+                        stop_atk.css({"display": "inline-block"});
+                        stop_arp.attr("disabled", "disabled");
+                        stop_arp.css({"color": "grey"})
+                })
+            });
+
+            stop_atk_btn.on("click", function() {
+                $.get('{{ url_for("stop_atk") }}', function(data) {
+                        stop_atk.css({"display": "none"});
+                        start_atk.css({"display": "inline-block"});
+                        stop_arp.prop("disabled", false);
+                        stop_arp.css({"color": "white"})                
+                })
+            });
+
+            {% if status == 1 %}
+                status.css({"background-image": "url('/static/img/orange.png')"});
+                start_arp.attr("disabled", "disabled");
+                start_arp.css({"color": "grey"});
+                status_text.html("运行")
+                {% if not is_atk %}
+                    start_atk_btn.prop("disabled", false);
+                    start_atk_btn.css({"color": "red"});
+                    stop_arp.prop("disabled", false);
+                    stop_arp.css({"color": "white"})
+                {% else %}
+                    start_atk.css({"display": "none"});
+                    stop_atk.css({"display": "inline-block"});
+                {% endif %}
+            {% elif status == 2 %}
+                status.css({"background-image": "url('/static/img/red.png')"});
+                stop_arp.prop("disabled", false);
+                stop_arp.css({"color": "white"})
+                start_arp.attr("disabled", "disabled");
+                start_arp.css({"color": "grey"});
+                status_text.html("异常")
+            {% endif %}
+        });
+    </script>
+{% endblock %}

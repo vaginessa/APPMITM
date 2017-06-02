@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <base target="content-body">
+    <title>{% block title %}Title{% endblock %}</title>
+    {% block style %}
+    {% endblock %}
+    <script src="{{ url_for("static", filename="js/jquery-1.11.1.js") }}"></script>
+    {% block frontScript %}
+    {% endblock %}
+</head>
+<body>
+{% block body %}
+{% endblock %}
+
+{% block endScript %}
+{% endblock %}
+
+</body>
+</html>

@@ -1,0 +1,6 @@
+body {
+    border: 0;
+    opacity: 0.85;
+    background: #07101b url("/static/img/bg.png") no-repeat center center fixed;
+    background-size: cover;
+}

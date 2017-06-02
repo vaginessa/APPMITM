@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+{% block title %}APK劫持平台{% endblock %}
+{% block style %}
+    <link href="{{ url_for("static", filename="css/index.css") }}" rel="stylesheet" />
+{% endblock %}
+{% block body %}
+    <section class="menu-body">
+        <ul>
+            <li class="choose"><a href="{{ url_for("console") }}">控制台</a></li>
+        </ul>
+    </section>
+
+
+
+    <section class="content-body">
+        <iframe  name="content-body" src="{{ url_for("console") }}" frameborder="0" width="100%" height="100%"></iframe>
+    </section>
+{% endblock %}
+{% block endScript %}
+    <script>
+        $(".menu-body>ul>li>a").on("click", function() {
+            $(".menu-body>ul>li").removeClass("choose");
+            $(this).parent().addClass("choose");
+        });
+    </script>
+{% endblock %}
